@@ -11,10 +11,10 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '',
-    redirect: '/home'
+    redirect: '/acceuil'
   },
   {
-    path: '/accueil',
+    path: '/acceuil',
     component: Acceuil
   },
   {
@@ -33,7 +33,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  // base: process.env.BASE_URL,
   routes
 })
 
