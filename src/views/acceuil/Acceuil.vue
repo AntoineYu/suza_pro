@@ -26,6 +26,7 @@ export default {
       getAcceuilData() {
         getData().then(res => {
           this.banners = res
+          //console.log(res)
         })
       }
     }
