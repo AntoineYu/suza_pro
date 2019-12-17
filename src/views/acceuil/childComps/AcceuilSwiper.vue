@@ -1,21 +1,25 @@
 <template>
-  <div>
-    <swiper>
-        <swiper-item v-for="item in banners">
+  <div class="acceuil-swiper">
+    <swiper :options="swiperOption">
+        <swiper-slide v-for="item in banners">
             <a :href="item.url">
                 <img :src="item.img" alt="">
             </a>
-        </swiper-item>
+        </swiper-slide>
+        <div class="swiper-pagination"  slot="pagination"></div>
+        <div class="swiper-button-prev" slot="button-prev"></div>
+        <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
   </div>
 </template>
 <script>
-import {Swiper, SwiperItem} from 'components/common/swiper'
+import 'swiper/dist/css/swiper.css'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
     name: 'AcceuilSwiper',
     components: {
-        Swiper,
-        SwiperItem
+       swiper,
+       swiperSlide
     },
     props: {
         banners: {
@@ -24,9 +28,31 @@ export default {
                 return []
             }
         }
+    },
+    data() {
+        return {
+            swiperOption: {
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: true,
+                    stopOnLastSlide: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true
+                },
+                navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+   },
+            }
+        }
     }
 }
 </script>
 <style scoped>
-
+    .acceuil-swiper img {
+        width: 100%;
+    }
 </style>
