@@ -1,7 +1,7 @@
 <template>
   <div id="acceuil">
     <nav-bar class="acceuil-nav"><div slot="center">SUZA</div></nav-bar>
-    <acceuil-swiper :banners="banners"></acceuil-swiper>
+    <acceuil-swiper></acceuil-swiper>
   </div>
 </template>
 <script>
@@ -39,7 +39,7 @@ export default {
   }
 
   .acceuil-nav {
-    background-color: var(--color-tint);
+    background-color: black;
     color: #fff;
     position: fixed;
     top: 0;

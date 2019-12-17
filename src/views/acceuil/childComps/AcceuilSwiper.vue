@@ -1,9 +1,29 @@
 <template>
   <div class="acceuil-swiper">
     <swiper :options="swiperOption">
-        <swiper-slide v-for="item in banners">
+        <!-- <swiper-slide v-for="item in banners">
             <a :href="item.url">
                 <img :src="item.img" alt="">
+            </a>
+        </swiper-slide> -->
+        <swiper-slide>
+            <a href="">
+                <img src="~assets/images/swiper/swiper1.png" alt="">
+            </a>
+        </swiper-slide>
+        <swiper-slide>
+            <a href="">
+                <img src="~assets/images/swiper/swiper2.png" alt="">
+            </a>
+        </swiper-slide>
+        <swiper-slide>
+            <a href="">
+                <img src="~assets/images/swiper/swiper3.png" alt="">
+            </a>
+        </swiper-slide>
+        <swiper-slide>
+            <a href="">
+                <img src="~assets/images/swiper/swiper4.png" alt="">
             </a>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination"></div>
@@ -21,14 +41,14 @@ export default {
        swiper,
        swiperSlide
     },
-    props: {
-        banners: {
-            type: Array,
-            default() {
-                return []
-            }
-        }
-    },
+    // props: {
+    //     banners: {
+    //         type: Array,
+    //         default() {
+    //             return []
+    //         }
+    //     }
+    // },
     data() {
         return {
             swiperOption: {
