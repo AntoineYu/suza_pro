@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-    name: 'HomeFeature',
+    name: 'TabControl',
 }
 </script>
 <style scoped>

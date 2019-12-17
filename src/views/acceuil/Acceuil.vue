@@ -2,16 +2,19 @@
   <div id="acceuil">
     <nav-bar class="acceuil-nav"><div slot="center">SUZA</div></nav-bar>
     <acceuil-swiper></acceuil-swiper>
+    <!-- <acceuil-feature></acceuil-feature> -->
   </div>
 </template>
 <script>
 import AcceuilSwiper from 'views/acceuil/childComps/AcceuilSwiper'
+import AcceuilFeature from './childComps/AcceuilFeature'
 import NavBar from 'components/common/navbar/NavBar'
 import {getData} from 'network/acceuil' 
 export default {
     name: 'Acceuil',
     components: {
       AcceuilSwiper,
+      AcceuilFeature,
       NavBar
     },
     data() {
