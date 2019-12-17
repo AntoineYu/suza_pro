@@ -1,5 +1,5 @@
 <template>
-  <div class="gooods-list-item">
+  <div class="goods-list-item">
       <img :src="goodsItem.img" alt="">
       <div class="goods-info">
           <p>{{ goodsItem.Nom }}</p>
