@@ -4,7 +4,7 @@
     <acceuil-swiper></acceuil-swiper>
     <!-- <acceuil-feature></acceuil-feature> -->
     <tab-control :titles="['bon marché', 'populaire', 'luxe']"></tab-control>
-    <goods-list :goods="goods"></goods-list>
+    <goods-list :cgoods="goods"></goods-list>
   </div>
 </template>
 <script>
@@ -35,7 +35,7 @@ export default {
       getAcceuilData() {
         getData().then(res => {
           this.goods = res
-          //console.log(res)
+          console.log(res)
         })
       }
     }

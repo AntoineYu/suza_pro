@@ -2,7 +2,7 @@
   <div class="gooods-list-item">
       <img :src="goodsItem.img" alt="">
       <div class="goods-info">
-          <p>{{ goodItem.Nom }}</p>
+          <p>{{ goodsItem.Nom }}</p>
           <span class="price">{{ goodsItem.price }}</span>
       </div>
   </div>

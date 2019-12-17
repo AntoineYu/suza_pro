@@ -1,6 +1,6 @@
 <template>
   <div class="goods-list">
-      <goods-list-item v-for="item in goods" :goods-item="item"></goods-list-item>
+      <goods-list-item v-for="item in cgoods" :goods-item="item"></goods-list-item>
   </div>
 </template>
 <script>
@@ -11,7 +11,7 @@ export default {
         GoodsListItem
     },
     props: {
-        goods: {
+        cgoods: {
             type: Array,
             default() {
                 return []
