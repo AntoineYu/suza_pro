@@ -5,3 +5,4 @@ export function getData() {
         url: '/getData'
     })
 }
+

@@ -3,23 +3,29 @@
     <nav-bar class="acceuil-nav"><div slot="center">SUZA</div></nav-bar>
     <acceuil-swiper></acceuil-swiper>
     <!-- <acceuil-feature></acceuil-feature> -->
+    <tab-control :titles="['bon marché', 'populaire', 'luxe']"></tab-control>
+    <goods-list :goods="goods"></goods-list>
   </div>
 </template>
 <script>
 import AcceuilSwiper from 'views/acceuil/childComps/AcceuilSwiper'
 import AcceuilFeature from './childComps/AcceuilFeature'
+import TabControl from 'components/content/tabcontrol/TabControl'
 import NavBar from 'components/common/navbar/NavBar'
+import GoodsList from 'components/content/goods/GoodsList'
 import {getData} from 'network/acceuil' 
 export default {
     name: 'Acceuil',
     components: {
       AcceuilSwiper,
       AcceuilFeature,
-      NavBar
+      TabControl,
+      NavBar,
+      GoodsList
     },
     data() {
       return {
-        banners: []
+        goods: []
       }
     },
     created() {
@@ -28,7 +34,7 @@ export default {
     methods: {
       getAcceuilData() {
         getData().then(res => {
-          this.banners = res
+          this.goods = res
           //console.log(res)
         })
       }
