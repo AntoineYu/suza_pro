@@ -6,3 +6,9 @@ export function getData() {
     })
 }
 
+export function getGoods() {
+    return request({
+        url: '/getGoods'
+    })
+}
+
