@@ -6,9 +6,13 @@ export function getData() {
     })
 }
 
-export function getGoods() {
+export function getGoodsData(type, page) {
     return request({
-        url: '/getGoods'
+        url: '/getGoods',
+        params: {
+            type,
+            page
+        }
     })
 }
 
