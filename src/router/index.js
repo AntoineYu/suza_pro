@@ -5,6 +5,7 @@ const Acceuil = () => import('views/acceuil/Acceuil')
 const Categorie = () => import('views/categorie/Categorie')
 const Panier = () => import('views/panier/Panier')
 const Compte = () => import('views/compte/Compte')
+const Detail = () => import('views/detail/Detail')
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,10 @@ const routes = [
   {
     path: '/compte',
     component: Compte
+  },
+  {
+    path: '/detail/:id',
+    component: Detail
   }
 ]
 

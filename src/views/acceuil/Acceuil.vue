@@ -64,10 +64,10 @@ export default {
       }, 800)
     },
     mounted() {
-      // const refresh = this.debounce(this.$refs.scroll.refresh, 300) 
-      // this.$bus.$on('imageItemLoad', () => {
-      //   refresh()
-      // })
+      const refresh = this.debounce(this.$refs.scroll.refresh, 300) 
+      this.$bus.$on('imageItemLoad', () => {
+        refresh()
+      })
     },
     methods: {
       debounce(func, delay){
