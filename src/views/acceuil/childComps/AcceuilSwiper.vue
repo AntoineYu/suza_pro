@@ -23,7 +23,7 @@
         </swiper-slide>
         <swiper-slide>
             <a href="">
-                <img src="~assets/images/swiper/swiper4.png" alt="">
+                <img src="~assets/images/swiper/swiper4.png" alt="" @load="imageLoad">
             </a>
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination"></div>
@@ -65,8 +65,13 @@ export default {
                 navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
-   },
+                },
             }
+        }
+    },
+    methods: {
+        imageLoad() {
+            this.$emit('swiperImageLoad')
         }
     }
 }
