@@ -5,6 +5,7 @@
 </template>
 <script>
 import DetailNavBar from './childComps/DetailNavBar'
+import {getDetail} from 'network/detail'
 export default {
     name: 'Detail',
     components: {
@@ -12,13 +13,15 @@ export default {
     },
     data() {
         return {
-        
+            id: null
         }
     },
-    // created() {
-    //     console.log(this.$route.params.id);
-    //     this.id = this.$route.params.id
-    // }
+    created() {
+        this.id = this.$route.params.id
+        getDetail(this.id).then(res => {
+            console.log(res);
+        })
+    }
 }
 </script>
 <style scoped>

@@ -36,8 +36,8 @@ export default {
 }
 </script>
 <style scoped>
-    .nav-bar {
-    }
+    /* .nav-bar {
+    } */
 
     .nav-bar img {
         vertical-align: middle;
