@@ -48,7 +48,8 @@ export default {
         currentType: 'low',
         isShowBackTop: false,
         tabOffsetTop: 0,
-        isTabFixed: false
+        isTabFixed: false,
+        saveY: 0
       }
     },
     created() {
@@ -69,6 +70,13 @@ export default {
         refresh()
       })
     },
+    // actived() {
+    //   this.$refs.scroll.scrollTo(0, this.saveY, 0)
+    //   this.$refs.scroll.refresh()
+    // },
+    // deactived() {
+    //   this.saveY = this.$refs.scroll.getCurrentY()
+    // },
     methods: {
       debounce(func, delay){
         let timer = null
@@ -93,6 +101,7 @@ export default {
         }
         this.$refs.tabControl1.currentIndex = index
         this.$refs.tabControl2.currentIndex = index
+        this.$refs.scroll.scrollTo(0, 0, 0)
       },
       getAcceuilGoodsData(type) {
         let page = this.goods[type].page + 1

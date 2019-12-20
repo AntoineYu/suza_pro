@@ -8,3 +8,9 @@ export function getDetail(id) {
         }
     })
 }
+
+export class Goods {
+    constructor() {
+        
+    }
+}
