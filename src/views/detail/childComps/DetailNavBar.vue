@@ -39,6 +39,7 @@ export default {
     .nav-bar {
         position: relative;
         z-index: 9;
+        background-color: #fff
     }
 
     .nav-bar img {
