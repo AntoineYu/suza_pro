@@ -30,7 +30,7 @@ import BackTop from 'components/content/backtop/BackTop'
 
 import {getData, getGoodsData} from 'network/acceuil' 
 import {debounce} from 'common/utils'
-import {itemListenerMixin} from 'common/mixin'
+import {itemListenerMixin, backtopMixin} from 'common/mixin'
 export default {
     name: 'Acceuil',
     components: {
@@ -39,8 +39,7 @@ export default {
       TabControl,
       NavBar,
       GoodsList,
-      Scroll,
-      BackTop
+      Scroll
     },
     data() {
       return {
@@ -50,17 +49,13 @@ export default {
           'high': {page: 0, list: []}
         },
         currentType: 'low',
-        isShowBackTop: false,
         tabOffsetTop: 0,
         isTabFixed: false,
         saveY: 0
       }
     },
-    mixins: [itemListenerMixin],
+    mixins: [itemListenerMixin, backtopMixin],
     created() {
-      // this.getAcceuilGoodsData('low')
-      // this.getAcceuilGoodsData('middle')
-      // this.getAcceuilGoodsData('high')
       this.getAcceuilGoodsData('low')
       setTimeout(() => {
         this.getAcceuilGoodsData('middle')
@@ -107,11 +102,8 @@ export default {
         })
       },
       contentScroll(position) {
-        this.isShowBackTop = (-position.y) > 500
+        this.listenShowBackTop(position)
         this.isTabFixed = (-position.y) > this.tabOffsetTop
-      },
-      backClick() {
-        this.$refs.scroll.scrollTo(0, 0, 500)
       },
       loadMore() {
         this.getAcceuilGoodsData(this.currentType)

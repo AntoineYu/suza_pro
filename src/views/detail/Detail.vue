@@ -5,20 +5,27 @@
           <detail-swiper :top-images="topImages"></detail-swiper>
           <detail-params-info :item-params="itemParams" ref="params"></detail-params-info>
       </scroll>
+      <detail-bottom-bar></detail-bottom-bar>
+      <back-top @click.native="backClick" v-show='isShowBackTop'></back-top>
   </div>
 </template>
 <script>
 import DetailNavBar from './childComps/DetailNavBar'
 import DetailSwiper from './childComps/DetailSwiper'
 import DetailParamsInfo from './childComps/DetailParamsInfo'
+import DetailBottomBar from './childComps/DetailBottomBar'
+
 import Scroll from 'components/common/scroll/Scroll'
+
 import {getDetail} from 'network/detail'
+import {backtopMixin} from 'common/mixin'
 export default {
     name: 'Detail',
     components: {
         DetailNavBar,
         DetailSwiper,
         DetailParamsInfo,
+        DetailBottomBar,
         Scroll
     },
     data() {
@@ -30,6 +37,7 @@ export default {
             currentIndex: 0
         }
     },
+    mixins: [backtopMixin],
     created() {
         this.id = this.$route.params.id
         getDetail(this.id).then(res => {
@@ -44,10 +52,6 @@ export default {
             })
         })
     },
-    // updated() {
-        
-    //     console.log(themeTopYs)
-    // },
     methods: {
         titleClick(index) {
             this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100)
@@ -62,6 +66,7 @@ export default {
                     this.$refs.nav.currentIndex = this.currentIndex
                 }
             }
+            this.listenShowBackTop(position)
         }
     }
 }
