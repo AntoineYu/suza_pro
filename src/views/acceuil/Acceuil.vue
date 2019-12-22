@@ -21,12 +21,16 @@
 <script>
 import AcceuilSwiper from 'views/acceuil/childComps/AcceuilSwiper'
 import AcceuilFeature from './childComps/AcceuilFeature'
+
 import TabControl from 'components/content/tabcontrol/TabControl'
 import NavBar from 'components/common/navbar/NavBar'
 import GoodsList from 'components/content/goods/GoodsList'
 import Scroll from 'components/common/scroll/Scroll'
 import BackTop from 'components/content/backtop/BackTop'
+
 import {getData, getGoodsData} from 'network/acceuil' 
+import {debounce} from 'common/utils'
+import {itemListenerMixin} from 'common/mixin'
 export default {
     name: 'Acceuil',
     components: {
@@ -52,6 +56,7 @@ export default {
         saveY: 0
       }
     },
+    mixins: [itemListenerMixin],
     created() {
       // this.getAcceuilGoodsData('low')
       // this.getAcceuilGoodsData('middle')
@@ -64,12 +69,9 @@ export default {
         }, 800)
       }, 800)
     },
-    mounted() {
-      const refresh = this.debounce(this.$refs.scroll.refresh, 300) 
-      this.$bus.$on('imageItemLoad', () => {
-        refresh()
-      })
-    },
+    // mounted() {
+      
+    // },
     // actived() {
     //   this.$refs.scroll.scrollTo(0, this.saveY, 0)
     //   this.$refs.scroll.refresh()
@@ -78,15 +80,6 @@ export default {
     //   this.saveY = this.$refs.scroll.getCurrentY()
     // },
     methods: {
-      debounce(func, delay){
-        let timer = null
-        return function(...args) {
-          if(timer) clearTimeout(timer)
-          timer = setTimeout(() => {
-            func.apply(this, args)
-          }, delay)
-        }
-      },
       pTabClick(index) {
         switch(index) {
           case 0:

@@ -1,9 +1,9 @@
 <template>
   <div class="detail">
-      <detail-nav-bar></detail-nav-bar>
-      <scroll class="content" ref="scroll">
-          <detail-swiper :topImages="topImages"></detail-swiper>
-          <detail-params-info :item-params="itemParams"></detail-params-info>
+      <detail-nav-bar @titleClick="titleClick" ref="nav"></detail-nav-bar>
+      <scroll class="content" ref="scroll" @scroll="contentScroll" :probe-type="3">
+          <detail-swiper :top-images="topImages"></detail-swiper>
+          <detail-params-info :item-params="itemParams" ref="params"></detail-params-info>
       </scroll>
   </div>
 </template>
@@ -24,8 +24,10 @@ export default {
     data() {
         return {
             id: null,
+            themeTopYs: [],
             topImages: [],
-            itemParams: []
+            itemParams: [],
+            currentIndex: 0
         }
     },
     created() {
@@ -34,7 +36,33 @@ export default {
             this.topImages = res.list
             this.itemParams = res.params
             // console.log(res.list);
+            this.$nextTick(() => {
+                this.themeTopYs = []
+                this.themeTopYs.push(0)
+                this.themeTopYs.push(this.$refs.params.$el.offsetTop)
+                // this.themeTopYs.push(Number.MAX_VALUE)
+            })
         })
+    },
+    // updated() {
+        
+    //     console.log(themeTopYs)
+    // },
+    methods: {
+        titleClick(index) {
+            this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100)
+        },
+        contentScroll(position) {
+            const positionY = -position.y
+            let length = this.themeTopYs.length
+            for(let i = 0; i < length; i++) {
+                if((this.currentIndex !== i) && ((i < length - 1 && positionY >= this.themeTopYs[i] && positionY < this.themeTopYs[i + 1]) || 
+                (i === length - 1 && positionY >= this.themeTopYs[i]))) {
+                    this.currentIndex = i
+                    this.$refs.nav.currentIndex = this.currentIndex
+                }
+            }
+        }
     }
 }
 </script>
