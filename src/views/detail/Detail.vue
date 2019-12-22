@@ -1,11 +1,12 @@
 <template>
   <div class="detail">
       <detail-nav-bar @titleClick="titleClick" ref="nav"></detail-nav-bar>
+      <div>{{ $store.state.cartList.length }}</div>
       <scroll class="content" ref="scroll" @scroll="contentScroll" :probe-type="3">
           <detail-swiper :top-images="topImages"></detail-swiper>
           <detail-params-info :item-params="itemParams" ref="params"></detail-params-info>
       </scroll>
-      <detail-bottom-bar></detail-bottom-bar>
+      <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
       <back-top @click.native="backClick" v-show='isShowBackTop'></back-top>
   </div>
 </template>
@@ -31,6 +32,8 @@ export default {
     data() {
         return {
             id: null,
+            name: '',
+            price: 0,
             themeTopYs: [],
             topImages: [],
             itemParams: [],
@@ -42,7 +45,10 @@ export default {
         this.id = this.$route.params.id
         getDetail(this.id).then(res => {
             this.topImages = res.list
+            this.img = res.img
             this.itemParams = res.params
+            this.price = res.price
+            this.name = res.Nom
             // console.log(res.list);
             this.$nextTick(() => {
                 this.themeTopYs = []
@@ -67,6 +73,16 @@ export default {
                 }
             }
             this.listenShowBackTop(position)
+        },
+        addToCart() {
+            const product = {}
+            product.img = this.img
+            product.id = this.id
+            product.name = this.name
+            product.price = this.price
+
+            // this.$store.commit('addCart', product)
+            this.$store.dispatch('addCart', product)
         }
     }
 }
