@@ -83,11 +83,11 @@ export default {
     .bar-right .cart {
         background-color: #ffe817;
         color: #333333;
-        font-size: 13px;
+        font-size: 11px;
     }
 
     .bar-right .buy {
         background-color: #ff6699;
-        font-size: 13px;
+        font-size: 11px;
     }
 </style>

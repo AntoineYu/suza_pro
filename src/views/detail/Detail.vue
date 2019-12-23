@@ -1,7 +1,6 @@
 <template>
   <div class="detail">
       <detail-nav-bar @titleClick="titleClick" ref="nav"></detail-nav-bar>
-      <div>{{ $store.state.cartList.length }}</div>
       <scroll class="content" ref="scroll" @scroll="contentScroll" :probe-type="3">
           <detail-swiper :top-images="topImages"></detail-swiper>
           <detail-params-info :item-params="itemParams" ref="params"></detail-params-info>
