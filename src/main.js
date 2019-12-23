@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import toast from 'components/common/toast'
+
 // Vue.prototype.$axios = Axios
 // Axios.defaults.baseURL = '/api'
 // Axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -10,6 +12,7 @@ import store from './store'
 Vue.config.productionTip = false
 
 Vue.prototype.$bus = new Vue()
+Vue.use(toast)
 
 new Vue({
   router,

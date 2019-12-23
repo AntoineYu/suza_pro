@@ -1,13 +1,13 @@
 <template>
   <div class="bottom-bar">
       <div class="check-content">
-          <check-button class="check-button" :is-checked="isSelectedAll"></check-button>
+          <check-button class="check-button" :is-checked="isSelectedAll" @click.native="checkClick"></check-button>
           <span>Tout</span>
       </div>
       <div class="price">
           Total: {{ totalPrice }}
       </div>
-      <div class="calculate">
+      <div class="calculate" @click="calcClick">
           Compter({{ checkLength }})
       </div>
   </div>
@@ -36,6 +36,20 @@ export default {
         isSelectedAll() {
             if (this.cartList.length ===0) return false  
             return !this.cartList.find(item => !item.checked) 
+        }
+    },
+    methods: {
+        checkClick() {
+            if (this.isSelectedAll) {
+                this.cartList.forEach(item => item.checked = false)
+            }else {
+                this.cartList.forEach(item => item.checked = true)
+            }
+        },
+        calcClick() {
+            if(!this.cartList.find(item => item.checked)) {
+                this.$toast.show('Choisissez votre produit', 2000)
+            }
         }
     }
 }

@@ -19,6 +19,8 @@ import Scroll from 'components/common/scroll/Scroll'
 
 import {getDetail} from 'network/detail'
 import {backtopMixin} from 'common/mixin'
+import {mapActions} from 'vuex'
+
 export default {
     name: 'Detail',
     components: {
@@ -58,6 +60,7 @@ export default {
         })
     },
     methods: {
+        ...mapActions(['addCart']),
         titleClick(index) {
             this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 100)
         },
@@ -81,7 +84,12 @@ export default {
             product.price = this.price
 
             // this.$store.commit('addCart', product)
-            this.$store.dispatch('addCart', product)
+            this.addCart(product).then(res => {
+                this.$toast.show(res, 2000)
+            })
+            // this.$store.dispatch('addCart', product).then(res => {
+            //     console.log(res)
+            // })
         }
     }
 }
