@@ -44,5 +44,6 @@ export default {
         background-color: rgba(0, 0, 0, .5);
         color: #fff;
         z-index: 99;
+        font-size: 12px;
     }
 </style>
