@@ -19,7 +19,7 @@ module.exports = {
         hotOnly: false, 
         proxy: {
             '/suza': {
-                target: 'http://49.235.69.94/suza', 
+                target: 'http://49.235.69.94:81/suza', 
                 changeOrigin: true,
                 pathRewrite: {
                     '^/suza': ''
