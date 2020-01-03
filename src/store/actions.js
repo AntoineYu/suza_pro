@@ -1,6 +1,8 @@
 import {
   ADD_COUNTER,
-  ADD_TO_CART
+  ADD_TO_CART,
+  DELETE_FROM_CART,
+  SUB_COUNTER
 } from './mutations-type'
 
 export default {
@@ -16,5 +18,10 @@ export default {
             resolve('Ajouté dans la panier')
           }
         })
+    },
+    removeCart(context, payload) {
+      for(var i=0; i<payload.length; i++) {
+        context.commit(DELETE_FROM_CART, payload[i])
+      }
     }
 }

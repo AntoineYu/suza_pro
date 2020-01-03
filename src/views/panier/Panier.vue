@@ -35,5 +35,7 @@ export default {
     background-color: var(--color-tint);
     color: #fff;
     font-weight: 700;
+    position: relative;
+    z-index: 5;
   }
 </style>

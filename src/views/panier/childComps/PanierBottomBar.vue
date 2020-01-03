@@ -7,6 +7,9 @@
       <div class="price">
           Total: {{ totalPrice }}
       </div>
+      <div class="delete" @click="deleteClick">
+          Suprimmer({{ checkLength }})
+      </div>
       <div class="calculate" @click="calcClick">
           Compter({{ checkLength }})
       </div>
@@ -50,6 +53,20 @@ export default {
             if(!this.cartList.find(item => item.checked)) {
                 this.$toast.show('Choisissez votre produit', 2000)
             }
+        },
+        deleteClick() {
+            if(!this.cartList.find(item => item.checked)) {
+                this.$toast.show('Pas de produits pour supprimer', 2000)
+            }else {
+                var item_arr = []
+                this.cartList.forEach((item, index) => {
+                    if(item.checked === true) {
+                        // this.$store.dispatch('removeCart', item)
+                        item_arr.push(item)
+                    }
+                })
+                this.$store.dispatch('removeCart', item_arr)
+            }
         }
     }
 }
@@ -88,7 +105,14 @@ export default {
 
     .calculate {
         width: 90px;
-        background-color: red;
+        background-color: var(--color-tint);
+        color: #fff;
+        text-align: center;
+    }
+
+    .delete {
+        width: 90px;
+        background-color: orange;
         color: #fff;
         text-align: center;
     }
