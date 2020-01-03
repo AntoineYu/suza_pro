@@ -95,7 +95,7 @@ export default {
         display: flex;
         align-items: center;
         margin-left: 10px;
-        width: 80px;
+        width: 70px;
     }
     
     .price {
@@ -104,7 +104,7 @@ export default {
     }
 
     .calculate {
-        width: 90px;
+        width: 80px;
         background-color: var(--color-tint);
         color: #fff;
         text-align: center;
