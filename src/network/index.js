@@ -5,7 +5,7 @@ axios.defaults.baseURL = '/suza'
 
 export function request(config) {
     const instance = new axios.create({
-        // baseURL: 'http://49.235.69.94:80',
+        // baseURL: 'http://49.235.69.94:81',
         timeout: 100000
     });
 
