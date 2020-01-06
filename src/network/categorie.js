@@ -6,11 +6,12 @@ export function getCategory() {
     })
 }
 
-export function getProByCat(category) {
+export function getProByCat(category, page) {
     return request({
         url: "/getProByCat",
         params: {
-            category
+            category,
+            page
         }
     })
 }

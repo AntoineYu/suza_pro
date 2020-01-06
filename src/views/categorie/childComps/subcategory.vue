@@ -2,7 +2,7 @@
     <div>
         <div class="sub-category" v-for="(item, index) in categoryList">
             <div class="sub-category-item" :class="item.children ? 'parent' : ''">
-                <div @click="toggle(index)" 
+                <div @click="toggle(item, index)" 
                     :class="{'son-active': !item.children && currentIndex === index}">
                     <p>{{ item.categorie }}</p>       
                 </div>
@@ -47,7 +47,7 @@ export default {
             // let len = this.categoryList.length
             
         },
-        toggle(index) {
+        toggle(item, index) {
             if(this.isOpens[index] === false) {
                 this.isOpens.forEach((value, indey) => {
                     this.$set(this.isOpens, indey, false)
@@ -64,6 +64,9 @@ export default {
                 this.$set(this.icones, index, "﹀")
             }
             this.currentIndex = index
+            if(!item.children) {
+                this.$bus.$emit('getGoods', item.categorie)
+            }
         }
     }
 }
