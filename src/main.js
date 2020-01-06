@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import FastClick from 'fastclick'
 import VueLazyLoad from 'vue-lazyload'
+import Vant from "vant"
+import "vant/lib/index.css"
+
 
 import toast from 'components/common/toast'
 
@@ -15,6 +18,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$bus = new Vue()
 Vue.use(toast)
+Vue.use(Vant)
 Vue.use(VueLazyLoad, {
   loading: require('./assets/images/common/placeholder.png')
 })
