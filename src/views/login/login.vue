@@ -3,7 +3,7 @@
       <nav-bar class="login-nav">
           <div slot="center">Login</div>
       </nav-bar>
-      <div :class="{ error: !formData.username }" class="login-item">
+      <!-- <div :class="{ error: !formData.username }" class="login-item">
           <label for="username">E-mail: </label>
           <input 
             type="text"
@@ -16,15 +16,46 @@
             type="text"
             id="password"
             placeholder="Entrer votre mot de passe">
-      </div>
-      <div class="login-btn">
-          <van-button class="login-btn-login" @click="goLogin">
+      </div> -->
+      <van-cell-group>
+          <van-row>
+              <van-col offset="2" span="10">
+                  <van-field 
+                    v-model="email"
+                    required
+                    label="Email :"
+                    label-width=150px
+                    border=true
+                    placeholder="Entrer votre email" 
+                    />
+              </van-col>
+          </van-row>
+          
+          <van-row>
+              <van-col offset="2" span="10">
+                  <van-field 
+                    v-model="password"
+                    required
+                    label="Mot de passe :"
+                    label-width=150px
+                    border=true
+                    placeholder="Entrer votre mot de passe" 
+                    />
+              </van-col>
+          </van-row>
+      </van-cell-group>
+      <van-row>
+          <van-col offset="2" span="4" class="btn">
+              <van-button class="login-btn-login" type="primary" plain @click="goLogin" size="small">
               Se connecter
-          </van-button>
-          <van-button class="login-btn-register" plain type="info" @click="goRegister">
+              </van-button>
+          </van-col>
+          <van-col offset="6" span="4" class="btn">
+              <van-button class="login-btn-register" type="info" plain @click="goRegister" size="small">
               S'inscrire
-          </van-button>
-      </div>
+              </van-button>
+          </van-col>
+      </van-row>
   </div>
 </template>
 <script>
@@ -38,14 +69,14 @@ export default {
     data() {
         return {
             formData: {
-                username: "",
+                email: "",
                 password: ""
             }
         }
     },
     methods: {
         goLogin() {
-            if(!this.formData.username) {
+            if(!this.formData.email) {
                 this.$notify({
                     type: "danger",
                     message: "E-mail ne peut pas être vide"
@@ -58,6 +89,9 @@ export default {
             }else {
                 console.log('Traiter...');
             }
+        },
+        goRegister() {
+            this.$router.push('/register')
         }
     }
 }
@@ -118,5 +152,16 @@ export default {
         justify-content: space-between;
         width: 340px;
         margin: 0 auto;
+    }
+    .login-btn-login {
+        width: 150px;
+    }
+
+    .login-btn-register {
+        width: 150px;
+    }
+
+    .btn {
+        display: block;
     }
 </style>

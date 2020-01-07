@@ -5,7 +5,7 @@
               <van-image :src="defaultPic" class="user-pic-img" fit="cover" round></van-image>
           </div>
       </van-uploader>
-      <div class="user-info" @click="curLogin ? '' : goLogin">
+      <div class="user-info" @click="curLogin ? '' : goLogin()">
           <p v-if="curLogin">{{ username }}</p>
           <p v-else>Se connecter / S'inscrire</p>
           <div class="phone-num">
