@@ -27,7 +27,7 @@ export default {
     name: 'Login',
     data() {
         return {
-            defaultPic: require("@/assets/images/compte/user.png")
+            defaultPic: require("assets/images/compte/user.png")
         }
     },
     props: {
