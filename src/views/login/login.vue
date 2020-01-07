@@ -3,14 +3,14 @@
       <nav-bar class="login-nav">
           <div slot="center">Login</div>
       </nav-bar>
-      <div class="login-item">
+      <div :class="{ error: !formData.username }" class="login-item">
           <label for="username">E-mail: </label>
           <input 
             type="text"
             id="username"
             placeholder="Entrer votre email">
       </div>
-      <div class="login-item">
+      <div :class="{ error: !formData.password }" class="login-item">
           <label for="password">Mot de passe: </label>
           <input 
             type="text"
@@ -18,20 +18,20 @@
             placeholder="Entrer votre mot de passe">
       </div>
       <div class="login-btn">
-          <van-button class="login-btn-login">
+          <van-button class="login-btn-login" @click="goLogin">
               Se connecter
           </van-button>
-          <van-button class="login-btn-register">
-              Registrer
+          <van-button class="login-btn-register" plain type="info" @click="goRegister">
+              S'inscrire
           </van-button>
       </div>
   </div>
 </template>
 <script>
-import NavBar from "@/components/common/navbar/NavBar"
+import NavBar from "components/common/navbar/NavBar"
 
 export default {
-    name: 'login',
+    name: 'Login',
     components: {
         NavBar
     },
@@ -40,6 +40,23 @@ export default {
             formData: {
                 username: "",
                 password: ""
+            }
+        }
+    },
+    methods: {
+        goLogin() {
+            if(!this.formData.username) {
+                this.$notify({
+                    type: "danger",
+                    message: "E-mail ne peut pas être vide"
+                })
+            }else if(!this.formData.password) {
+                this.$notify({
+                    type: "danger",
+                    message: "Mot de passe ne peut pas être vide"
+                })
+            }else {
+                console.log('Traiter...');
             }
         }
     }

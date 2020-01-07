@@ -12,11 +12,11 @@
 <script>
 import SlideBar from "./childComps/SlideBar"
 
-import NavBar from "@/components/common/navbar/NavBar"
-import Scroll from "@/components/common/scroll/Scroll"
-import GoodsList from "@/components/content/goods/GoodsList"
+import NavBar from "components/common/navbar/NavBar"
+import Scroll from "components/common/scroll/Scroll"
+import GoodsList from "components/content/goods/GoodsList"
 
-import {getCategory, getProByCat} from "@/network/categorie"
+import {getCategory, getProByCat} from "network/categorie"
 
 export default {
     name: 'Categorie',
