@@ -1,37 +1,53 @@
 <template>
   <div class="register">
-    <nav-bar class="login-nav">
-      <div slot="center">S'inscrire</div>
-    </nav-bar>
-    <div class="login-item">
-      <label for="username">Email: </label>
-      <input 
+      <nav-bar class="register-nav">
+          <div slot="center">Register</div>
+      </nav-bar>
+      <div class="content">
+        <van-field 
+            v-model="email"
+            required
+            label="Email"
+            clearable
+            :error-message="usermail"
+            placeholder="Entrer votre email" 
+        />
+        <van-field 
+            v-model="password"
+            required
             type="text"
-            id="username"
-            placeholder="Entrer votre email">
-    </div>
-    <div class="login-item">
-          <label for="password">Mot de passe: </label>
-          <input 
-            type="text"
-            id="password"
-            placeholder="Entrer votre mot de passe">
-    </div>
-    <div class="login-item">
-          <label for="phone">Mot de passe: </label>
-          <input 
-            type="text"
-            id="password"
-            placeholder="Entrer votre téléphone">
-    </div>
-    <div class="login-btn">
-      <van-button class="login-btn-register" type="info">
-        S'inscrire
-      </van-button>
-      <van-button class="login-btn-login" plain type="info">
-        Se connecter
-      </van-button>
-    </div>
+            label="Mot de passe"
+            clearable
+            :error-message="userpass"
+            placeholder="Entrer votre mot de passe" 
+        />
+        <van-field 
+            v-model="sms"
+            required
+            center
+            clearable
+            placeholder="Entrer votre code de vérification" 
+        >
+        <van-button 
+            :disabled="flag" 
+            slot="button" 
+            size="small" 
+            type="primary"
+            @click="sendCode">
+            {{ buttonmsg }}
+        </van-button>
+        </van-field>
+        <van-button 
+            type="primary" 
+            :loading="loading" 
+            size="large"
+            loading-text="Register..."
+            :disabled="isDisabled"
+            @click="register">
+              S'inscrire
+        </van-button>
+        <van-divider @click="toLogin">Se connecter</van-divider>
+      </div>
   </div>
 </template>
 <script>
@@ -43,92 +59,97 @@ export default {
     },
     data() {
       return {
-        formData: {
-          username: "",
-          password: "",
-          phone: ""
-        }
+        email: '',
+        password: '',
+        isDisabled: false,
+        loading: false,
+        buttonmsg: 'Envoyer le code',
+        sms: '',
+        flag: false,
+        adminCode: ''
       }
     },
+    computed: {
+        usermail() {
+            if(this.email === "") {
+                return '' 
+            }else if(!/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/i.test(this.email)) {
+                return "Erreur de format"
+            }else {
+                return ''
+            }
+        },
+        userpass() {
+            if(this.password === "") {
+                return ""
+            }else if(this.password.length < 6) {
+                return "Au moins 6 caractères"
+            }else {
+                return ""
+            }
+        }
+    },
     methods: {
-      goRegister() {
-        if(!this.formData.username) {
-          this.$notify({
-            type: "danger",
-            message: "E-mail ne peut pas être vide"
-          })
-        }else if(!this.formData.password) {
-          this.$notify({
-            type: "danger",
-            message: "Mot de passe ne peut pas être vide"
-          })
-        }else if(!this.formData.phone) {
-          this.$notify({
-            type: "danger",
-            message: "Téléphone ne peut pas être vide"
-          })
+      register() {
+        if(this.usermail === 'Erreur de format' || this.email === '') {
+            this.$toast.show("Erreur de email")
+            return
+        }
+        if(this.password === '' || this.userpass === "Au moins 6 caractères") {
+            this.$toast.show("Erreur de mot de passe")
+            return
+        }
+        if(this.sms === '' || this.sms !== this.adminCode) {
+            this.$toast.show("Erreur de code de vérification")
+            return
+        }
+        this.realR()
+      },
+      realR() {
+        this.isDisabled = true
+        this.loading = true
+        console.log('向后端发送请求，请求注册');
+      },
+      toLogin() {
+        this.$router.replace('/login')
+      },
+      sendCode() {
+        let time = 4
+        let timer 
+        timer = setInterval(() => {
+          time --
+          if(time == 0) {
+            clearInterval(timer)
+            this.flag = false
+            this.buttonmsg = 'Envoyer le code'
+            return
+          }
+          this.flag = true
+          this.buttonmsg = 'Après ' + time + ' secondes'
+        }, 1000)
+        this.getCode()
+      },
+      getCode() {
+        if(this.usermail === 'Erreur de format' || this.email === '') {
+          this.$toast.show("Erreur de email", 2000)
+        }else if(this.password === '' || this.userpass === "Au moins 6 caractères") {
+          this.$toast.show("Erreur de mot de passe", 2000)
         }else {
-          console.log('Traiter...');
+          console.log('发送网络请求请求验证码');
         }
       }
     }
 }
 </script>
 <style scoped>
-  .login {
+  .register {
       width: 100%;
       color: #333333;
       font-size: 14px;
   }
 
-  .login-nav {
+  .register-nav {
       color: white;
       background-color: var(--color-tint);
-  }
-
-  .login-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 340px;
-      margin: 30px auto;
-  }
-
-  .login-item label {
-      display: block;
-      font-size: 16px;
-      width: 70px;
-  }
-
-  .login-item input {
-      display: block;
-      width: 270px;
-      height: 36px;
-      line-height: 36px;
-      outline: none;
-      background: none;
-      border: 1px solid #cccccc;
-      border-radius: 5px;
-      padding-left: 10px;
-      font-size: 14px;
-  }
-
-  .login-item input:focus {
-      border: 1px solid #4098ef;
-  }
-
-  .login-item.error input:focus {
-      border: 1px solid red;
-  }
-
-  .login-item input::placeholder {
-      color: #999999;
-  }
-
-  .login-btn {
-      display: flex;
-      justify-content: space-between;
-      width: 340px;
-      margin: 0 auto;
   }
 </style>
