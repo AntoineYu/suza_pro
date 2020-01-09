@@ -41,7 +41,6 @@ export default {
     },
     methods: {
       goLogin() {
-        console.log('re');
         this.$router.push("/login")
       }
     }
