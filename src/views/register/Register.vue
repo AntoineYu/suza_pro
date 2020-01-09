@@ -22,7 +22,7 @@
             placeholder="Entrer votre mot de passe" 
         />
         <van-field 
-            v-model="sms"
+            v-model="code"
             required
             center
             clearable
@@ -33,7 +33,7 @@
             slot="button" 
             size="small" 
             type="primary"
-            @click="sendCode">
+            @click="change">
             {{ buttonmsg }}
         </van-button>
         </van-field>
@@ -52,6 +52,8 @@
 </template>
 <script>
 import NavBar from "components/common/navbar/NavBar"
+
+import {sendCode, check_register} from "network/login"
 export default {
     name: 'Register',
     components: {
@@ -64,9 +66,10 @@ export default {
         isDisabled: false,
         loading: false,
         buttonmsg: 'Envoyer le code',
-        sms: '',
+        code: '',
         flag: false,
-        adminCode: ''
+        adminCode: '',
+        formData: {}
       }
     },
     computed: {
@@ -90,6 +93,28 @@ export default {
         }
     },
     methods: {
+      sendCode(email) {
+        sendCode(email).then(res => {
+          if(res === 0) {
+            this.$toast.show("Échec de l'envoi")
+          }else {
+            this.adminCode = res
+            console.log(this.adminCode);
+          }
+        })
+      },
+      check_register(form) {
+        check_register(form).then(res => {
+          if(res === 1) {
+            this.$toast.show("Déjà existe, veuillez connecter")
+          }else if(res === 0) {
+            this.$toast.show("échoué")
+          }else {
+            this.$toast.show("Enregistré avec succès")
+            this.$router.push('/login')
+          }
+        })
+      },
       register() {
         if(this.usermail === 'Erreur de format' || this.email === '') {
             this.$toast.show("Erreur de email")
@@ -99,7 +124,7 @@ export default {
             this.$toast.show("Erreur de mot de passe")
             return
         }
-        if(this.sms === '' || this.sms !== this.adminCode) {
+        if(this.code === '' || this.code !== this.adminCode) {
             this.$toast.show("Erreur de code de vérification")
             return
         }
@@ -108,12 +133,16 @@ export default {
       realR() {
         this.isDisabled = true
         this.loading = true
-        console.log('向后端发送请求，请求注册');
+        this.formData = {
+          "userEmail": this.email,
+          "password": this.password
+        }
+        this.check_register(this.formData)
       },
       toLogin() {
         this.$router.replace('/login')
       },
-      sendCode() {
+      change() {
         let time = 4
         let timer 
         timer = setInterval(() => {
@@ -135,7 +164,7 @@ export default {
         }else if(this.password === '' || this.userpass === "Au moins 6 caractères") {
           this.$toast.show("Erreur de mot de passe", 2000)
         }else {
-          console.log('发送网络请求请求验证码');
+          this.sendCode(this.email)
         }
       }
     }

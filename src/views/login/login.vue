@@ -35,6 +35,7 @@
 <script>
 import NavBar from "components/common/navbar/NavBar"
 
+import { check_login } from "network/login"
 export default {
     name: 'Login',
     components: {
@@ -45,12 +46,30 @@ export default {
             email: '',
             password: '',
             isDisabled: false,
-            loading: false
+            loading: false,
+            formData: {}
         }
     },
     methods: {
+        check_login(form) {
+            check_login(form).then(res => {
+                if(res === 1) {
+                    this.$toast.show("Connexion réussie", 2000)
+                }else if(res === 0) {
+                    this.$toast.show("échoué", 2000)
+                }else {
+                    this.$toast.show("Compte n\'éxiste pas, veuillez vous inscrire", 2000)
+                    this.email = ""
+                    this.password = ""
+                }
+            })
+        },
         login() {
-            console.log('发送网络请求验证用户');
+            this.formData = {
+                userEmail: this.email,
+                password: this.password
+            }
+            this.check_login(this.formData)
         },
         toRegister() {
             this.$router.replace('/register')
