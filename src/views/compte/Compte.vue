@@ -12,7 +12,7 @@
       />
       <money></money>
       <div class="line"></div>
-      <profile-list></profile-list>
+      <profile-list @logOut="logOut" :is-login="isLogin"></profile-list>
     </scroll>
   </div>
 </template>
@@ -42,6 +42,27 @@ export default {
     methods: {
       goLogin() {
         this.$router.push("/login")
+      },
+      logOut() {
+        this.isLogin = false
+        localStorage.removeItem("login_info")
+        localStorage.removeItem("user_pic")
+        setTimeout(() => {
+          this.$router.replace('/compte')
+        }, 1000)
+      }
+    },
+    activated() {
+      let login_info = localStorage.getItem("login_info")
+      let user_pic = localStorage.getItem("user_pic")
+      if(login_info) {
+        let login = JSON.parse(login_info)
+        this.username = login.username
+        this.phone = login.phone
+        this.isLogin = true
+      }
+      if(user_pic) {
+        this.$refs.login.defaultPic = JSON.parse(user_pic)
       }
     }
 }

@@ -5,6 +5,14 @@
       </nav-bar>
       <div class="content">
         <van-field 
+            v-model="name"
+            required
+            label="Nom"
+            clearable
+            :error-message="username"
+            placeholder="Entrer votre nom" 
+        />
+        <van-field 
             v-model="email"
             required
             label="Email"
@@ -37,6 +45,14 @@
             {{ buttonmsg }}
         </van-button>
         </van-field>
+        <van-field 
+            v-model="phone"
+            type="text"
+            label="Téléphone"
+            clearable
+            :error-message="userphone"
+            placeholder="Entrer votre numéro de téléphone" 
+        />
         <van-button 
             type="primary" 
             :loading="loading" 
@@ -61,8 +77,10 @@ export default {
     },
     data() {
       return {
+        name: '',
         email: '',
         password: '',
+        phone: '',
         isDisabled: false,
         loading: false,
         buttonmsg: 'Envoyer le code',
@@ -74,22 +92,40 @@ export default {
     },
     computed: {
         usermail() {
-            if(this.email === "") {
-                return '' 
-            }else if(!/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/i.test(this.email)) {
-                return "Erreur de format"
-            }else {
-                return ''
-            }
+          if(this.email === "") {
+              return '' 
+          }else if(!/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/i.test(this.email)) {
+              return "Erreur de format"
+          }else {
+              return ''
+          }
         },
         userpass() {
-            if(this.password === "") {
-                return ""
-            }else if(this.password.length < 6) {
-                return "Au moins 6 caractères"
-            }else {
-                return ""
-            }
+          if(this.password === "") {
+              return ""
+          }else if(this.password.length < 6) {
+              return "Au moins 6 caractères"
+          }else {
+              return ""
+          }
+        },
+        userphone() {
+          if(this.phone === "") {
+            return ""
+          }else if(this.phone.length < 10){
+            return "Erreur de format"
+          }else {
+            return ""
+          }
+        },
+        username() {
+          if(this.name === "") {
+            return ""
+          }else if(!/^[A-Za-z]+$/.test(this.name)) {
+            return "Il faut des lettres"
+          }else {
+            return ""
+          }
         }
     },
     methods: {
@@ -105,27 +141,38 @@ export default {
       check_register(form) {
         check_register(form).then(res => {
           if(res === 1) {
-            this.$toast.show("Déjà existe, veuillez connecter")
+            this.$toast.show("Déjà existe, veuillez connecter", 2000)
           }else if(res === 0) {
-            this.$toast.show("échoué")
+            this.$toast.show("échoué", 2000)
           }else {
-            this.$toast.show("Enregistré avec succès")
-            this.$router.push('/login')
+            this.$toast.show("Enregistré avec succès, en train de passer...", 2000)
+            setTimeout(() => {
+              this.$router.push('/login')
+            }, 3000)
           }
+        })
+        .catch(err => {
+          console.log(err)
         })
       },
       register() {
-        if(this.usermail === 'Erreur de format' || this.email === '') {
-            this.$toast.show("Erreur de email")
-            return
+        if(this.usermail || this.email === '') {
+          this.$toast.show("Erreur de email", 2000)
+          return
         }
-        if(this.password === '' || this.userpass === "Au moins 6 caractères") {
-            this.$toast.show("Erreur de mot de passe")
-            return
+        if(this.password === '' || this.userpass) {
+          this.$toast.show("Erreur de mot de passe", 2000)
+          return
         }
         if(this.code === '' || this.code !== this.adminCode) {
-            this.$toast.show("Erreur de code de vérification")
-            return
+          this.$toast.show("Erreur de code de vérification", 2000)
+          return
+        }
+        if(this.name === "" || this.username) {
+          this.$toast.show("Erreur de nom", 2000)
+        }
+        if(this.userphone) {
+          this.$toast.show("Erreur de phone", 2000)
         }
         this.realR()
       },
@@ -133,8 +180,10 @@ export default {
         this.isDisabled = true
         this.loading = true
         this.formData = {
+          "userName": this.name,
           "userEmail": this.email,
-          "password": this.password
+          "password": this.password,
+          "userPhone": this.phone ? this.phone : ""
         }
         this.check_register(this.formData)
       },

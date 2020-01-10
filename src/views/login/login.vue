@@ -54,17 +54,28 @@ export default {
         check_login(form) {
             check_login(form).then(res => {
                 if(res === 1) {
-                    this.$toast.show("Connexion réussie", 2000)
-                }else if(res === 0) {
-                    this.$toast.show("échoué", 2000)
-                }else {
                     this.$toast.show("Compte n\'éxiste pas, veuillez vous inscrire", 2000)
                     this.email = ""
                     this.password = ""
+                }else if(res === 0) {
+                    this.$toast.show("échoué", 2000)
+                }else {
+                    let obj = {
+                        username: res.uname,
+                        phone: res.uphone
+                    }
+                    localStorage.setItem("login_info", JSON.stringify(obj))
+                    setTimeout(() => {
+                        this.$router.push("/Compte")
+                    }, 3000)
                 }
+            }).catch(err => {
+                console.log(err)
             })
         },
         login() {
+            this.isDisabled = true
+            this.loading = true
             this.formData = {
                 userEmail: this.email,
                 password: this.password
