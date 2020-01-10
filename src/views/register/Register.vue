@@ -57,7 +57,7 @@
             type="primary" 
             :loading="loading" 
             size="large"
-            loading-text="Register..."
+            loading-text="S'inscrire..."
             :disabled="isDisabled"
             @click="register">
               S'inscrire
@@ -127,6 +127,15 @@ export default {
             return ""
           }
         }
+    },
+    deactivated() {
+        this.isDisabled = false
+        this.loading = false
+        this.email = ""
+        this.password = ""
+        this.name = ""
+        this.phone = ""
+        this.code = ""
     },
     methods: {
       sendCode(email) {

@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+const originalPush = VueRouter.prototype.push
+  VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const Acceuil = () => import('views/acceuil/Acceuil')
 const Categorie = () => import('views/categorie/Categorie')
 const Panier = () => import('views/panier/Panier')

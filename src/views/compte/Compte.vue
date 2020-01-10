@@ -47,9 +47,11 @@ export default {
         this.isLogin = false
         localStorage.removeItem("login_info")
         localStorage.removeItem("user_pic")
+        localStorage.removeItem("isLogin")
         setTimeout(() => {
-          this.$router.replace('/compte')
+          this.$router.push('/compte')
         }, 1000)
+        console.log(this.$route.path.indexOf(this.path));
       }
     },
     activated() {

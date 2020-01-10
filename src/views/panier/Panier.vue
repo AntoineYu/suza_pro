@@ -22,6 +22,15 @@ export default {
       PanierList,
       PanierBottomBar
     },
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        if(localStorage.getItem('isLogin') === 'ok') {
+          next()
+        }else {
+          vm.$router.push('/login')
+        }
+      })
+    },
     computed: {
       // ...mapGetters(['cartLength', 'cartList'])
       ...mapGetters({

@@ -19,11 +19,15 @@
             clearable
             placeholder="Entrer votre mot de passe" 
         />
+        <van-checkbox class="checkbox" v-model="checked" checked-color="#07c160">
+            Se souvenir de moi
+        </van-checkbox>
         <van-button 
+            class="button"
             type="primary" 
             :loading="loading" 
             size="large"
-            loading-text="Login..."
+            loading-text="Se connecter..."
             :disabled="isDisabled"
             @click="login">
               Se connecter
@@ -47,8 +51,15 @@ export default {
             password: '',
             isDisabled: false,
             loading: false,
-            formData: {}
+            formData: {},
+            checked: false
         }
+    },
+    deactivated() {
+        this.isDisabled = false
+        this.loading = false
+        this.email = ""
+        this.password = ""
     },
     methods: {
         check_login(form) {
@@ -65,6 +76,7 @@ export default {
                         phone: res.uphone
                     }
                     localStorage.setItem("login_info", JSON.stringify(obj))
+                    localStorage.setItem("isLogin", 'ok')
                     setTimeout(() => {
                         this.$router.push("/Compte")
                     }, 3000)
@@ -81,6 +93,8 @@ export default {
                 password: this.password
             }
             this.check_login(this.formData)
+            // this.isDisabled = false
+            // this.loading = false
         },
         toRegister() {
             this.$router.replace('/register')
@@ -98,5 +112,13 @@ export default {
   .login-nav {
       color: white;
       background-color: var(--color-tint);
+  }
+
+  .checkbox {
+      margin-top: 5px;
+  }
+
+  .button {
+      margin-top: 20px;
   }
 </style>
