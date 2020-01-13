@@ -1,8 +1,8 @@
 <template>
   <div class="login">
-      <van-uploader :after-load="afterRead">
+      <van-uploader :after-read="afterRead">
           <div class="user-pic">
-              <van-image :src="defaultPic" class="user-pic-img" fit="cover" round></van-image>
+              <van-image :src="pic" class="user-pic-img" fit="cover" round></van-image>
           </div>
       </van-uploader>
       <div class="user-info" @click="curLogin ? '' : goLogin()">
@@ -27,7 +27,7 @@ export default {
     name: 'Login',
     data() {
         return {
-            defaultPic: require("assets/images/compte/user.png")
+            pic: require("assets/images/compte/user.png")
         }
     },
     props: {
@@ -55,8 +55,8 @@ export default {
             this.$emit("goLogin")
         },
         afterRead(file) {
-            this.defaultPic = file.content
-            localStorage.setItem("user_pic", JSON.stringify(this.defaultPic))
+            this.pic = file.content
+            localStorage.setItem("user_pic", JSON.stringify(this.pic))
         }
     }
 }

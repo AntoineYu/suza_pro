@@ -19,9 +19,9 @@
             clearable
             placeholder="Entrer votre mot de passe" 
         />
-        <van-checkbox class="checkbox" v-model="checked" checked-color="#07c160">
+        <!-- <van-checkbox @click="isRememeber" class="checkbox" v-model="checked" checked-color="#07c160" shape="square">
             Se souvenir de moi
-        </van-checkbox>
+        </van-checkbox> -->
         <van-button 
             class="button"
             type="primary" 
@@ -93,8 +93,6 @@ export default {
                 password: this.password
             }
             this.check_login(this.formData)
-            // this.isDisabled = false
-            // this.loading = false
         },
         toRegister() {
             this.$router.replace('/register')
@@ -114,9 +112,10 @@ export default {
       background-color: var(--color-tint);
   }
 
-  .checkbox {
-      margin-top: 5px;
-  }
+  /* .checkbox {
+      margin-top: 20px;
+      margin-left: 10px;
+  } */
 
   .button {
       margin-top: 20px;

@@ -9,6 +9,7 @@
         :phone="phone"
         :username="username"
         @goLogin="goLogin"
+        ref="login"
       />
       <money></money>
       <div class="line"></div>
@@ -64,7 +65,7 @@ export default {
         this.isLogin = true
       }
       if(user_pic) {
-        this.$refs.login.defaultPic = JSON.parse(user_pic)
+        this.$refs.login.pic = JSON.parse(user_pic)
       }
     }
 }
