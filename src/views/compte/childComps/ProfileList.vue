@@ -17,7 +17,7 @@
           <span>Télécharger APP</span>
       </div>
       <div v-if="isLogin" class="profile-list-item">
-          <img src="~assets/images/compte/download.png" alt="">
+          <img src="~assets/images/compte/configure.png" alt="">
           <span @click="showPopup">Configure</span>
           <van-popup
             class="profile-list-item"
