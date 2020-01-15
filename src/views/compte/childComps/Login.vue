@@ -13,7 +13,7 @@
                 src="~assets/images/compte/phone.png" 
                 alt=""
                 class="icon-phone">
-                <p v-if="curLogin">{{ phone }}</p>
+                <p v-if="curLogin">{{ phone | cache}}</p>
                 <p v-else></p>
           </div>
       </div>
@@ -48,6 +48,12 @@ export default {
             default() {
                 return ""
             }
+        }
+    },
+    filters: {
+        cache(val) {
+            val = "" + val
+            return val.substr(0, 2) + "****" + val.substr(6)
         }
     },
     methods: {

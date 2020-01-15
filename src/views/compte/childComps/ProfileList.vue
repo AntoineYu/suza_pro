@@ -10,12 +10,12 @@
       </div>
       <div class="profile-list-item">
           <img src="~assets/images/compte/vip.png" alt="">
-          <span>Mon carte</span>
+          <span>Ma carte</span>
       </div>
-      <div class="profile-list-item">
+      <!-- <div class="profile-list-item">
           <img src="~assets/images/compte/download.png" alt="">
           <span>Télécharger APP</span>
-      </div>
+      </div> -->
       <div v-if="isLogin" class="profile-list-item">
           <img src="~assets/images/compte/configure.png" alt="">
           <span @click="showPopup">Configure</span>
