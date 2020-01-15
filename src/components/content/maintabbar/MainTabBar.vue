@@ -3,7 +3,7 @@
       <tab-bar-item path="/acceuil">
         <img slot="item-icon" src="~assets/images/tabbar/home.svg" alt="">
         <img slot="item-icon-active" src="~assets/images/tabbar/home_active.svg" alt="">
-        <div slot="item-text">Acceuil</div>
+        <div slot="item-text">Accueil</div>
       </tab-bar-item>
       <tab-bar-item path="/categorie">
         <img slot="item-icon" src="~assets/images/tabbar/category.svg" alt="">
